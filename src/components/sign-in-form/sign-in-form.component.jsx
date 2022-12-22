@@ -1,5 +1,4 @@
-import { useState, useContext } from "react";
-import { UserContext } from "../../context/user.context";
+import { useState } from "react";
 import {
     createAuthUserWithEmailAndPassword,
     createUserDocumentFromAuth,
@@ -21,7 +20,6 @@ const SignInForm = () => {
     // Initialize necessary variables
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { email, password } = formFields;
-    const { setCurrentUser } = useContext(UserContext)
 
     // Reset form field values
     const resetFormFields = () => {
@@ -34,8 +32,6 @@ const SignInForm = () => {
         try {
             // Sign in with email and password
             const user = await signInAuthUserWithEmailAndPassword(email, password);
-            // Set current user context
-            setCurrentUser(user);
             resetFormFields();
         }
         catch(error){
@@ -63,7 +59,6 @@ const SignInForm = () => {
     // Login function
     const signInWithGoogle = async () => {
         const { user } = await signInWithGooglePopup();
-        const userDocRef = await createUserDocumentFromAuth(user);
     };
 
     // Return
